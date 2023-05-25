@@ -1,4 +1,5 @@
 import torch
+import os
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
@@ -29,6 +30,10 @@ model = model.CNN().to(device)
 optimizer = optim.Adamax(model.parameters(), lr=learning_rate)
 # 损失函数选择
 loss_fn = F.nll_loss
+
+# 如果data目录不存在，则创建
+if not os.path.exists('./data'):
+    os.makedirs('./data')
 
 # 加载MNIST数据集，数据增强
 train_dataset = datasets.MNIST(
