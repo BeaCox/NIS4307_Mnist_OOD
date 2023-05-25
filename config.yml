@@ -1,13 +1,13 @@
 # 迭代次数
-n_epochs: 20
+n_epochs: 10
 # 训练集批次大小
 batch_size_train: 64
 # 测试集批次大小
 batch_size_test: 1000
 # 学习率
-learning_rate: 0.01
+learning_rate: 0.001
 
-# 日志间隔
-log_interval: 100
 # 随机种子
-random_seed: 2
+random_seed: 123456
+
+ood_threshold_percentile: 25

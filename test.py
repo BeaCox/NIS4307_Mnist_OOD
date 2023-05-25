@@ -1,32 +1,32 @@
-# -*- coding: utf-8 -*-
 import torch
 from torchvision import transforms
-from torchvision.datasets import MNIST
+import numpy as np
 import matplotlib.pyplot as plt
+import torchvision.utils as vutils
 import oodcls
 
-test = MNIST(
-    './data',
-    train=False,
-    download=True,
-    transform=transforms.Compose([
-        transforms.ToTensor(),
-    ]),
-)
+oodcls=oodcls.OodCls('./models/cnn.pth', './models/svm.pkl')
 
-test_loader = torch.utils.data.DataLoader(test,batch_size=1000,shuffle=True)
+# 读取CSV文件
+data = np.genfromtxt('tensor.csv', delimiter=',', dtype=np.float32)
 
-oodcls=oodcls.OodCls('./models/model.pth')
+# 转换为张量
+data = torch.from_numpy(data)
+# 变换形状
+data = data.reshape(10,1,28,28)
 
-examples = enumerate(test_loader)
-batch_idx, (example_data, example_targets) = next(examples)
-preds = oodcls.classify(example_data)
-fig = plt.figure()
-for i in range(6):
-    plt.subplot(2, 3, i + 1)
-    plt.tight_layout()
-    plt.imshow(example_data[i][0], cmap='gray', interpolation='none')
-    plt.title("Prediction: {}".format(preds[i].item()))
-    plt.xticks([])
-    plt.yticks([])
+# 分类并画图
+preds = oodcls.classify(data)
+# 遍历每个样本并绘制图像
+for i in range(data.size(0)):
+    plt.subplot(2, 5, i + 1)
+    img = vutils.make_grid(data[i], normalize=True)
+    plt.imshow(img.permute(1, 2, 0))
+    plt.axis('off')
+    plt.title("{}".format(preds[i].item()))
+
+# 调整子图布局
+plt.tight_layout()
+
+# 显示图像
 plt.show()
