@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import torch
+import os
 import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import transforms
@@ -13,6 +14,10 @@ n_epochs, batch_size_train, batch_size_test, learning_rate, log_interval, random
 
 # 设置随机种子
 torch.manual_seed(random_seed)
+
+# 如果没有data目录，创建data目录
+if not os.path.exists('./data'):
+    os.makedirs('./data')
 
 # 训练集
 train = MNIST(
