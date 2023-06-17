@@ -1,6 +1,12 @@
 # NIS4307_Mnist_OOD
 SJTU NIS4307 课程大作业。
 
+## 安装依赖
+
+```python
+ pip install -r requirements.txt
+```
+
 ## 训练
 
  在[config.yml](./config.yml)中设置超参数。
@@ -25,6 +31,9 @@ preds = oodcls.classify(img)
 
 Example:
 ```python
+# 导入oodcls.py
+import oodcls
+
 oodcls = oodcls.OodCls()
 data = np.genfromtxt('..\data.csv', delimiter=',', dtype=np.float32)
 # Convert data to tensor
