@@ -7,6 +7,6 @@ batch_size_test: 512
 # 学习率
 learning_rate: 0.004
 # 异常阈值
-thresholds_percent: 0.7
+thresholds_percent: 0.8
 # KLD
 KLD_weight: 0.4
